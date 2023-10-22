@@ -1,27 +1,19 @@
 
 import React, { Component } from "react";
 import { nanoid } from "nanoid";
-
+import { ContactsList } from "./ContactsList/ContactsList"
+import { Filter } from "./Filter/Filter";
+import { ContactsForm } from "./ContactsForm/ContactsForm"
+import css from "./App.module.css"
 
 const initValues = {
   name: '',
   number: '',
 }
 
-function Child({ user, foo }) {
-  const handleClick = () => {
-    foo(user)
-  };
-  return (
-    <>
-      <button onClick={handleClick} type="button">REMOVE</button>
-    </>
-  )
-}
 
 export class App extends Component {
-  inputIdName = nanoid();
-  inputIdNumber = nanoid();
+
 
   state = {
     contacts: [
@@ -45,7 +37,6 @@ export class App extends Component {
     const newName = name.toLowerCase();
     let nameOnList = false
 
-
     const newContact = { id: nanoid(), name: name, number: number };
 
     contacts.forEach(contact => {
@@ -67,70 +58,35 @@ export class App extends Component {
       [name]: value,
     })
   }
+
   toRemove = (userToRemove) => {
     this.setState((prev) => ({
       contacts: prev.contacts.filter((user) => user.name !== userToRemove),
     }))
   }
-  ToFind = (evt) => {
-    const searchValue = evt.target.value
-    const newContacts = this.state.contacts.filter(user => user.name.toLowerCase().includes(searchValue.toLowerCase()))
 
-    console.log(searchValue)
+  ToFind = (evt) => {
+    this.setState({
+      filter: evt.target.value.toLowerCase()
+    })
   }
 
-  //   APIData.filter((item) => {
-  //     return Object.values(item).join('').toLowerCase().includes(searchInput.toLowerCase())
-  // })
-  //   const newPacientes = pacientes.filter(value => value.name.toLowerCase().includes(searchValue.toLowerCase()))
-  //   setPacientes(newPacientes)
-  // }, [searchValue])
+  FilteredContacts() {
+    return this.state.contacts.filter(user => user.name.toLowerCase().includes(this.state.filter))
+  }
+
   render() {
-    const { contacts, filter } = this.state
+    const { filter, name, number } = this.state
     return (
-      <div>
-        <h1>Phonebook</h1>
-        <form onSubmit={this.handleSubmit}>
-          <label htmlFor={this.inputIdName}>Name</label>
-          <input
-            onChange={this.handleChange}
-            value={this.state.name}
-            id={this.inputIdName}
-            type="text"
-            name="name"
-            pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-            title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-            required />
-          <label htmlFor={this.inputIdNumber}>Number</label>
-          <input
-            onChange={this.handleChange}
-            value={this.state.number}
-            id={this.inputIdNumber}
-            type="tel"
-            name="number"
-            pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-            title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-            required
-          />
-          <button type="submit" >
-            Add contact
-          </button>
-        </form>
-        <h2>Contacts</h2>
-        <label>Find contacts by name </label>
-        <input type="text" value={filter} onChange={this.ToFind}></input>
-        <ul>
-          {contacts.map((user) => (
-
-            <li key={user.id}> {user.name}: {user.number}<Child key={user.id} user={user.name} foo={this.toRemove} /> </li>
-
-          ))}
-        </ul>
-      </div>
+      <div className={css.container}>
+        <h1 className={css.header}>Phonebook</h1>
+        <ContactsForm onSubmitForm={this.handleSubmit} onChangeForm={this.handleChange} inputName={name} inputNumber={number} />
+        <h2 className={css.header}>Contacts</h2>
+        <Filter value={filter} search={this.ToFind} />
+        <ContactsList contacts={this.FilteredContacts()} removeEvt={this.toRemove}></ContactsList>
+      </div >
     );
   }
 
 }
 
-// return <child> </child> <li key={user.id}> {user.name}: {user.number}
-// </li>
