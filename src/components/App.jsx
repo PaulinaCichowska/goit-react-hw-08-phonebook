@@ -73,10 +73,18 @@ export class App extends Component {
     }))
   }
   ToFind = (evt) => {
-    this.setState({ filter: evt.target.value });
-    console.log(evt.target.value)
+    const searchValue = evt.target.value
+    const newContacts = this.state.contacts.filter(user => user.name.toLowerCase().includes(searchValue.toLowerCase()))
+
+    console.log(searchValue)
   }
 
+  //   APIData.filter((item) => {
+  //     return Object.values(item).join('').toLowerCase().includes(searchInput.toLowerCase())
+  // })
+  //   const newPacientes = pacientes.filter(value => value.name.toLowerCase().includes(searchValue.toLowerCase()))
+  //   setPacientes(newPacientes)
+  // }, [searchValue])
   render() {
     const { contacts, filter } = this.state
     return (
