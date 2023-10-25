@@ -26,10 +26,37 @@ export class App extends Component {
     ...initValues,
 
   }
+  //zadanie 3//
+  setLocalStorage = () => {
+    localStorage.setItem("contacts", JSON.stringify(this.state.contacts))
+  }
+
+  componentDidUpdate() {
+    this.setLocalStorage();
+  }
+
+  async componentDidMount() {
+    localStorage.setItem("contacts", [" "])
+    // dodane tutaj tej metody na potrzeby tego że dodane są kontakty od razu w stanie 
+    this.setLocalStorage();
+    //
+    const contactsFromLocalStorage = localStorage.getItem("contacts")
+    try {
+      const parseContacts = JSON.parse(contactsFromLocalStorage)
+      this.setState({
+        contacts: parseContacts,
+      })
+    }
+    catch (error) {
+    }
+  }
+  //koniec zadania 3//
+
   handleSubmit = (e) => {
     e.preventDefault();
-    this.addContatcs()
-    this.setState(initValues)
+    this.addContatcs();
+    this.setState(initValues);
+
   }
 
   addContatcs = () => {
