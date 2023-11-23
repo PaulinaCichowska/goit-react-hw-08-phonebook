@@ -1,17 +1,23 @@
 import PropTypes from "prop-types"
 import css from "./ContactsList.module.css"
+import { useDispatch, useSelector } from "react-redux"
+import { removeContact } from "redux/contactsSlice"
 
-export const ContactsList = ({ contacts, removeEvt }) => (
-    <ul className={css.list}>
-        {contacts.map((user) => (
+export const ContactsList = () => {
+    const contacts = useSelector((state) => state.contacts)
+    const dispatch = useDispatch();
 
-            <li className={css.listItem} key={user.id}> {user.name}: {user.number}<button className={css.removeBtn} onClick={() => removeEvt(user.name)} type="button">REMOVE</button></li>
+    const removeUser = (id) => {
+        dispatch(removeContact(id))
 
-        ))}
-    </ul>)
+    }
+    return (
+        <ul className={css.list}>
+            {contacts.map((user) => (
 
+                <li className={css.listItem} key={user.id}> {user.name}: {user.number}<button className={css.removeBtn} onClick={() => removeUser(user.id)} type="button">REMOVE</button></li>
 
-ContactsList.prototype = {
-    contacts: PropTypes.array,
-    removeEvt: PropTypes.func
+            ))}
+        </ul>)
 }
+
