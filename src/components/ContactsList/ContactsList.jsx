@@ -14,9 +14,7 @@ export const ContactsList = () => {
     return (
         <ul className={css.list}>
             {contacts.map((user) => (
-
                 <li className={css.listItem} key={user.id}> {user.name}: {user.number}<button className={css.removeBtn} onClick={() => removeUser(user.id)} type="button">REMOVE</button></li>
-
             ))}
         </ul>)
 }

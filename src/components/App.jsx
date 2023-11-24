@@ -73,22 +73,6 @@ export const App = () => {
 
 
 
-    // const handleChange = (e) => {
-    //     const { name, value } = e.target;
-
-    //     switch (name) {
-
-    //         case 'name':
-    //             setName(value)
-    //             break;
-    //         case 'number':
-    //             setNumber(value)
-    //             break;
-    //         default:
-    //             console.log(ErrorEvent)
-
-    //     }
-    // }
 
 
 
