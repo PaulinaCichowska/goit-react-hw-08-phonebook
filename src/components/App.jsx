@@ -9,8 +9,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { addContact, setContacts } from '../redux/contactsSlice'
 import { getContacts } from "redux/selectors";
 
-
-
 export const App = () => {
     const dispatch = useDispatch();
     const contacts = useSelector(getContacts);
@@ -30,7 +28,6 @@ export const App = () => {
             }
         }
     }, [dispatch]);
-
 
     useEffect(() => {
         const strContacts = JSON.stringify(contacts)
@@ -53,7 +50,6 @@ export const App = () => {
     const handleChange = (e) => {
         const { name, value } = e.target;
         switch (name) {
-
             case 'name':
                 setName(value)
                 break;
@@ -62,7 +58,6 @@ export const App = () => {
                 break;
             default:
                 console.log(ErrorEvent)
-
         }
     }
 
