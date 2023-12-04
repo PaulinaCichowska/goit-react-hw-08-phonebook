@@ -2,7 +2,7 @@ import { nanoid } from "nanoid";
 import css from "./Filter.module.css"
 import { useDispatch, useSelector } from "react-redux";
 import { getFilter } from "redux/selectors";
-import { filterContact } from "redux/contactsSlice"
+import { filterContact } from "redux/reducers/contactsSlice"
 
 
 
@@ -12,8 +12,10 @@ export const Filter = () => {
     const dispatch = useDispatch();
 
     const findContact = (evt) => {
-        dispatch(filterContact(evt.target.value.toLowerCase()))
+        console.log("filter")
+        // dispatch(filterContact(evt.target.value.toLowerCase()))
     }
+
 
     return (
         <div className={css.filter}>

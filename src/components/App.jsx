@@ -6,8 +6,9 @@ import { Filter } from "./Filter/Filter";
 import { ContactsForm } from "./ContactsForm/ContactsForm"
 import css from "./App.module.css"
 import { useSelector, useDispatch } from "react-redux";
-import { addContact, setContacts } from '../redux/contactsSlice'
+import { addContact, setContacts } from '../redux/reducers/contactsSlice'
 import { getContacts } from "redux/selectors";
+import { addContacts, fetchContacts } from "redux/reducers/operations";
 
 export const App = () => {
     const dispatch = useDispatch();
@@ -16,30 +17,15 @@ export const App = () => {
     const [number, setNumber] = useState('')
 
     useEffect(() => {
-        const contactsFromLocalStorage = localStorage.getItem("contacts")
-        if (contactsFromLocalStorage !== null) {
-            try {
-                const parseContacts = JSON.parse(contactsFromLocalStorage)
-                dispatch(setContacts(parseContacts))
+        dispatch(fetchContacts())
+    }, [])
 
-            }
-            catch (error) {
-                console.log(error.name)
-            }
-        }
-    }, [dispatch]);
-
-    useEffect(() => {
-        const strContacts = JSON.stringify(contacts)
-
-        localStorage.setItem("contacts", strContacts)
-    }, [contacts])
 
     const handleSubmit = (e) => {
         e.preventDefault();
         setName("");
         setNumber("");
-        dispatch(addContact({
+        dispatch(addContacts({
             name: name,
             number: number,
             id: nanoid(),

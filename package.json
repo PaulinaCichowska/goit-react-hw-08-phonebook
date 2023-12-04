@@ -5,7 +5,9 @@
   "homepage": "https://paulinacichowska.github.io/goit-react-hw-06-phonebook/",
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.7",
+    "axios": "^1.6.2",
     "components": "^0.1.0",
+    "depcheck": "^1.4.7",
     "eslint-config-react-app": "^7.0.1",
     "nanoid": "^5.0.3",
     "prop-types": "^15.8.1",
