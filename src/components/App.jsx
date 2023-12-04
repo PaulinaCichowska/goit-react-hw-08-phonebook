@@ -5,20 +5,19 @@ import { ContactsList } from "./ContactsList/ContactsList"
 import { Filter } from "./Filter/Filter";
 import { ContactsForm } from "./ContactsForm/ContactsForm"
 import css from "./App.module.css"
-import { useSelector, useDispatch } from "react-redux";
-import { addContact, setContacts } from '../redux/reducers/contactsSlice'
-import { getContacts } from "redux/selectors";
+import { useDispatch } from "react-redux";
 import { addContacts, fetchContacts } from "redux/reducers/operations";
+
 
 export const App = () => {
     const dispatch = useDispatch();
-    const contacts = useSelector(getContacts);
+
     const [name, setName] = useState('')
     const [number, setNumber] = useState('')
 
     useEffect(() => {
         dispatch(fetchContacts())
-    }, [])
+    }, [dispatch])
 
 
     const handleSubmit = (e) => {

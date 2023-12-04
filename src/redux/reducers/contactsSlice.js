@@ -12,6 +12,11 @@ export const initialState = {
 export const contactsSlice = createSlice({
     name: "phonebook",
     initialState,
+    reducers: {
+        filterContact: (state, action) => {
+            state.filter = action.payload
+        },
+    },
     extraReducers: (builder) => {
         builder
             .addCase(fetchContacts.pending, (state, action) => {
@@ -40,16 +45,20 @@ export const contactsSlice = createSlice({
                 state.isLoading = true;
             })
             .addCase(addContacts.fulfilled, (state, action) => {
+                if (state.contacts.find(contact => contact.name.toLowerCase() === action.payload.name.toLowerCase())) {
+                    return alert(`Name is already in contacts`);
+                } else {
+                    state.contacts = [...state.contacts, action.payload];
+                }
                 state.isLoading = false;
                 state.error = null;
-                state.contacts.push(action.payload);
             })
             .addCase(addContacts.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.payload;
             });
-    }
+    },
 
 });
-
+export const { filterContact } = contactsSlice.actions
 export default contactsSlice.reducer;
