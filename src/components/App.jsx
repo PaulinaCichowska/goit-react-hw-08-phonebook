@@ -6,7 +6,7 @@ import { Filter } from "./Filter/Filter";
 import { ContactsForm } from "./ContactsForm/ContactsForm"
 import css from "./App.module.css"
 import { useDispatch } from "react-redux";
-import { addContacts, fetchContacts } from "redux/reducers/operations";
+import { addContacts, fetchContacts } from "redux/reducers/contacts/operations";
 
 
 export const App = () => {
