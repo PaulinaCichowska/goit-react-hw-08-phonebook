@@ -2,7 +2,7 @@ import { nanoid } from "nanoid";
 import css from "./Filter.module.css"
 import { useDispatch, useSelector } from "react-redux";
 import { selectFilter } from "redux/selectors";
-import { filterContact } from "redux/reducers/contactsSlice"
+import { filterContact } from "redux/reducers/contacts/contactsSlice"
 
 
 

@@ -1,0 +1,52 @@
+.nav {
+    margin: 40px;
+    display: flex;
+    gap: 60px;
+    align-items: center;
+    justify-content: center;
+    font-size: 25px;
+
+}
+
+.tdNone {
+    text-decoration: none;
+}
+
+.logout {
+    margin-top: 10px;
+    font-size: 1rem;
+    background: transparent;
+    width: 100px;
+    padding: 0.5em;
+    border: none;
+    border-left: 1px solid white;
+    border-top: 1px solid white;
+    border-radius: 5000px;
+    backdrop-filter: blur(5px);
+    box-shadow: 4px 4px 60px rgba(0, 0, 0, 0.2);
+    color: #fff;
+    font-family: Montserrat, sans-serif;
+    font-weight: 500;
+    transition: all 0.2s ease-in-out;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+
+}
+
+.logout:hover {
+    cursor: pointer;
+    background: rgba(255, 1, 1, 0.595);
+    box-shadow: 4px 4px 60px 8px rgba(0, 0, 0, 0.2);
+
+}
+
+.logout:active {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+
+.logout::placeholder {
+    font-family: Montserrat, sans-serif;
+    font-weight: 400;
+    color: #fff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+}
