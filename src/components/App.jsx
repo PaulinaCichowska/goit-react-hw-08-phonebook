@@ -9,6 +9,7 @@ import { Phonebook } from "./Phonebook/Phonebook";
 import { useDispatch, useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import { useEffect } from "react";
+import { ErrorBoundary } from "react-error-boundary";
 
 import { me } from "redux/reducers/auth/operations";
 import { selectIsRefreshing } from "redux/reducers/auth/selectors";
@@ -21,14 +22,17 @@ export const App = () => {
     }, [dispatch]);
     if (isRefreshing) return <p>loading...</p>;
     return (
-        <Routes>
-            <Route path="/" element={<Layout />}>
-                <Route index element={<Home />}></Route>
-                <Route path="login" element={<ProtectedRoute element={<Login />} redirect={"/phonebook"} />}></Route>
-                <Route path="register" element={<ProtectedRoute element={<Register redirect={"/phonebook"} />} />}></Route>
-                <Route path="phonebook" element={<PrivateRoute element={<Phonebook />} redirect="/login" />}></Route>
-            </Route>
-        </Routes>
+        <ErrorBoundary fallback={<p>Something went wrong</p>}>
+            <Routes>
+                <Route path="/" element={<Layout />}>
+                    <Route index element={<Home />}></Route>
+                    <Route path="login" element={<ProtectedRoute element={<Login />} redirect={"/phonebook"} />}></Route>
+                    <Route path="register" element={<ProtectedRoute element={<Register redirect={"/phonebook"} />} />}></Route>
+                    <Route path="phonebook" element={<PrivateRoute element={<Phonebook />} redirect="/login" />}></Route>
+                    <Route path="*" element={<Home />} />
+                </Route>
+            </Routes>
+        </ErrorBoundary>
     )
 };
 
