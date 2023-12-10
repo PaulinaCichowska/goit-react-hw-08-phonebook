@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "https://paulinacichowska.github.io/goit-react-hw-08-phonebook/",
   "dependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@reduxjs/toolkit": "^1.9.7",
     "axios": "^1.6.2",
     "components": "^0.1.0",
