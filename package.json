@@ -4,12 +4,11 @@
   "private": true,
   "homepage": "https://paulinacichowska.github.io/goit-react-hw-08-phonebook/",
   "dependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@reduxjs/toolkit": "^1.9.7",
     "axios": "^1.6.2",
     "components": "^0.1.0",
-    "depcheck": "^1.4.7",
     "eslint-config-react-app": "^7.0.1",
-    "history": "^5.3.0",
     "nanoid": "^5.0.3",
     "prop-types": "^15.8.1",
     "react": "^18.1.0",
