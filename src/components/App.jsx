@@ -1,59 +1,34 @@
+import ProtectedRoute from "./ProtectedRoute";
+import PrivateRoute from "./PrivateRoute";
 
-import { useEffect, useState } from "react";
-import { nanoid } from "nanoid";
-import { ContactsList } from "./ContactsList/ContactsList"
-import { Filter } from "./Filter/Filter";
-import { ContactsForm } from "./ContactsForm/ContactsForm"
-import css from "./App.module.css"
-import { useDispatch } from "react-redux";
-import { addContacts, fetchContacts } from "redux/reducers/contacts/operations";
+import { Layout } from "./Layout/Layout";
+import { Home } from "./Home/Home";
+import { Login } from "./Login/Login";
+import { Register } from "./Register/Register";
+import { Phonebook } from "./Phonebook/Phonebook";
+import { useDispatch, useSelector } from "react-redux";
+import { Route, Routes } from "react-router-dom";
+import { useEffect } from "react";
 
+import { me } from "redux/reducers/auth/operations";
+import { selectIsRefreshing } from "redux/reducers/auth/selectors";
 
 export const App = () => {
     const dispatch = useDispatch();
-
-    const [name, setName] = useState('')
-    const [number, setNumber] = useState('')
-
+    const isRefreshing = useSelector(selectIsRefreshing);
     useEffect(() => {
-        dispatch(fetchContacts())
-    }, [dispatch])
-
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        setName("");
-        setNumber("");
-        dispatch(addContacts({
-            name: name,
-            number: number,
-            id: nanoid(),
-        }));
-
-    }
-
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        switch (name) {
-            case 'name':
-                setName(value)
-                break;
-            case 'number':
-                setNumber(value)
-                break;
-            default:
-                console.log(ErrorEvent)
-        }
-    }
-
+        dispatch(me());
+    }, [dispatch]);
+    if (isRefreshing) return <p>loading...</p>;
     return (
-        <div className={css.container}>
-            <h1 className={css.header}>Phonebook</h1>
-            <ContactsForm onSubmitForm={handleSubmit} onChangeForm={handleChange} inputName={name} inputNumber={number} />
-            <h2 className={css.header}>Contacts</h2>
-            <Filter />
-            <ContactsList></ContactsList>
-        </div >
+        <Routes>
+            <Route path="/" element={<Layout />}>
+                <Route index element={<Home />}></Route>
+                <Route path="login" element={<ProtectedRoute element={<Login />} redirect={"/phonebook"} />}></Route>
+                <Route path="register" element={<ProtectedRoute element={<Register redirect={"/phonebook"} />} />}></Route>
+                <Route path="phonebook" element={<PrivateRoute element={<Phonebook />} redirect="/login" />}></Route>
+            </Route>
+        </Routes>
     )
 };
 
